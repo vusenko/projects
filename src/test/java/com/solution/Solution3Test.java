@@ -2,61 +2,31 @@ package com.solution;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class Solution3Test {
 
 
-    @org.junit.Test
-    public void validMerge(){
-        int indexFullnessOfFirst = 3;
-        int [] firstArray = new int[]{1,3,4,0,0,0};
-
-        int indexFullnessOfSecond = 3;
-        int [] secondArray = new int []{1,2,5,0,0,0,0,0,0};
-
-        int[] expected = new int[] {1,1,2,3,4,5};
-
-        assertArrayEquals(expected,Solution3.merge(firstArray,indexFullnessOfFirst,secondArray,indexFullnessOfSecond));
-    }
-
-    @org.junit.Test
-    public void validMergeWithEmptySecondArray(){
-        int indexFullnessOfFirst = 3;
-        int [] firstArray = new int[]{1,3,4,0,0,0};
-
-        int indexFullnessOfSecond = 0;
-        int [] secondArray = new int []{0,0,0,0,0};
-
-        int[] expected = new int[] {1,3,4,0,0,0};
-
-        assertArrayEquals(expected,Solution3.merge(firstArray,indexFullnessOfFirst,secondArray,indexFullnessOfSecond));
-    }
-
-    @org.junit.Test
-    public void validMergeWithEmptyFirstArray(){
-        int indexFullnessOfFirst = 0;
-        int [] firstArray = new int[]{0,0,0};
-
-        int indexFullnessOfSecond = 3;
-        int [] secondArray = new int []{1,2,5,0,0,0,0,0,0};
-
-        int[] expected = new int[] {1,2,5};
-
-        assertArrayEquals(expected,Solution3.merge(firstArray,indexFullnessOfFirst,secondArray,indexFullnessOfSecond));
-    }
-
     @Test
-    public void testCheckMerge(){
-        int lengthFirst = 3;
-        int [] a1 = new int[]{1,3,4,0,0,0};
+    public void test(){
+        String s = "";
+        String s1 = "a";
+        String s2 = "ab";
+        String s3 = "abcabced";
+        String s4 = "bbbbbb";
+        String s5 = "abbbbb";
+        String s6 = "bbbbbc";
+        String s7= "abac";
 
-        int lengthSecond = 3;
-        int [] a2 = new int []{1,2,5,0,0,0,0,0,0};
 
-
-        assertArrayEquals(Solution3.merge(a1,lengthFirst,a2,lengthSecond),
-                Solution3.anotherMerge(a1,lengthFirst,a2,lengthSecond));
+        assertEquals(0, Solution3.lengthOfLongestSubstring(s));
+        assertEquals(1, Solution3.lengthOfLongestSubstring(s1));
+        assertEquals(2, Solution3.lengthOfLongestSubstring(s2));
+        assertEquals(5, Solution3.lengthOfLongestSubstring(s3));
+        assertEquals(1, Solution3.lengthOfLongestSubstring(s4));
+        assertEquals(2, Solution3.lengthOfLongestSubstring(s5));
+        assertEquals(2, Solution3.lengthOfLongestSubstring(s6));
+        assertEquals(3, Solution3.lengthOfLongestSubstring(s7));
     }
 
 }

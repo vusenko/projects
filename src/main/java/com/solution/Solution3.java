@@ -1,90 +1,53 @@
 package com.solution;
 
+import java.util.Stack;
+
 public class Solution3 {
 
+    /**
+     * Given a string, find the length of the longest substring without repeating characters.
+     * For example, the longest substring without repeating letters for "abcabcbb" is "abc", which the length is 3.
+     * For "bbbbb" the longest substring is "b", with the length of 1.
+     */
+    public static int lengthOfLongestSubstring(String s) {
 
-    public static int [] merge(int [] array1 , int firstIndex,int [] array2,int secondIndex){
-        //if second index is 0 ,just return first array
-        if(secondIndex == 0){
-            return array1;
-        }
+        if(s.trim().isEmpty()) return 0;
+        if(s.length() == 1) return 1;
 
-        //if first index is 0 ,we need copy second array to first (cause can checked array length,not fullness)
-        if(firstIndex == 0){
-            for(int i= 0;i<secondIndex;i++){
-                array1[i] = array2[i];
-            }
+        Stack<Character> subChars = new Stack<Character>();
 
-        //we made merge of both
-        } else {
-            for(int i = 0; i< secondIndex;i++){
+        char [] chars = s.toCharArray();
+        int [] indices  = new int[chars.length];
 
-                for(int j = 0;j<firstIndex; j++){
+        int index = 0;
+        for(int i = 0; i< chars.length;i++){
 
-                    if(array2[i] <= array1[j]){
-                        shiftToRight(array1,firstIndex,j);
-                        array1[j] = array2[i];
-                        break;
-                    }else if (j==0){
-                        ++firstIndex;
-                        array1[firstIndex] = array2[i];
-                    }
+            if(!subChars.contains(chars[i])){
+                subChars.push(chars[i]);
+
+                //case when all unique
+                if(i == chars.length-1){
+                    return subChars.size();
                 }
+
+            }else {
+                indices[index] = subChars.size();
+                subChars.clear();
+                subChars.push(chars[i]);
+                ++index;
             }
         }
-        return array1;
+
+        return getMax(indices);
     }
 
-
-
-    public static int [] anotherMerge(int [] array1 , int firstIndex,int [] array2,int secondIndex){
-        //if second index is 0 ,just return first array
-        if(secondIndex == 0){
-            return array1;
-        }
-
-        //if first index is 0 ,we need just copy second array to first (cause can checked array length,not fullness)
-        if(firstIndex == 0){
-            for(int i= 0; i< secondIndex;i++){
-                array1[i] = array2[i];
-            }
-
-        //we will make one array and then will make sort
-        } else {
-            for(int i = 0; i < secondIndex; i++){
-                array1[firstIndex+i] = array2[i];
-            }
-            sort(array1,firstIndex+secondIndex);
-        }
-        return array1;
-    }
-
-
-
-    private static void sort(int [] array,int index){
-        int temp ;
-        for(int i = 0; i<index; i++){
-
-            for(int k = i; k<index; k++){
-
-                if(array[k] < array[i]){
-                    temp = array[i];
-                    array[i] = array[k];
-                    array[k] = temp;
-                }
+    private static int getMax(int [] values){
+        int max = 0;
+        for(int i = 0 ; i <values.length; i++){
+            if(values[i] > max){
+                max = values[i];
             }
         }
-    }
-
-    private static void shiftToRight(int [] array,int indexOfFullness,int index){
-        for(int i = indexOfFullness; i > index; i--){
-            array[i] = array[i-1];
-        }
-    }
-
-    private static void printArray(int [] array){
-        for(int i =0 ;i<array.length;i++){
-            System.out.println("["+i+"]"+" = "+array[i]);
-        }
+        return max;
     }
 }
